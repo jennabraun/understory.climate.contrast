@@ -1,5 +1,6 @@
 library(dplyr)
 library(tidyr)
+library(ggplot2)
 setwd("data/loggers")
 temp <- list.files(pattern="*.csv")
 name <- list.files(pattern="*.csv")
@@ -31,5 +32,7 @@ allLoggers$time <- format(strptime(allLoggers$time, "%I:%M:%S %p"), format="%H:%
 
 #EDA
 
-
-
+str(allLoggers)
+allLoggers$temp <- as.numeric(allLoggers$temp)
+oneshrub <- filter(allLoggers, id == "253")
+ggplot(data = oneshrub, aes(time, temp)) + geom_boxplot() + facet_grid(.~treatment) 
